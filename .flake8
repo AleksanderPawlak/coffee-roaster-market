@@ -1,3 +1,2 @@
 [flake8]
-ignore = F401  # TODO: remove
 max-line-length = 99
