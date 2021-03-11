@@ -2,7 +2,7 @@
 name = "coffee-roaster-market"
 version = "0.1.0"
 description = "Django based - coffee roaster we market"
-authors = ["AleksanderPawlak <qaleksander.pawlak1996@gmail.com>"]
+authors = ["Aleksander Pawlak <qaleksander.pawlak1996@gmail.com>", "Paweł Kucharski <pawel.kucharski@hotmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
