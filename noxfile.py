@@ -15,5 +15,10 @@ def black(session):
 
 @nox_poetry.session
 def tests(session):
-    session.run("poetry", "install", external=True)
+    session.install(
+        "Django",
+        "django-rest-framework",
+        "django-environ",
+        "pytest-django",
+    )
     # session.run('pytest')  # TODO: run pytest
