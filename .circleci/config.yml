@@ -1,0 +1,39 @@
+version: 2.1
+
+jobs:
+    build-and-test:
+        docker:
+            - image: circleci/python:3.9.2
+        steps:
+            - checkout
+            - restore_cache:
+                keys:
+                    - deps-{{ checksum "poetry.lock" }}
+            - run:
+                name: Install deps
+                command: |
+                    poetry install
+                    pip install nox
+                    pip install nox_poetry
+
+            - save_cache:
+                key: deps-{{ checksum "poetry.lock" }}
+                paths:
+                    - /home/circleci/.cache/pypoetry/virtualenvs
+            
+            - run:
+                name: Run lint 
+                command: nox -s lint  
+
+            - run:
+                name: Run black
+                command: nox -s black
+
+            - run:
+                name: Run tests 
+                command: nox -s tests
+
+workflows:
+    main:
+        jobs:
+            - build-and-test
