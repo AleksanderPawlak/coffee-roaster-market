@@ -1,0 +1,14 @@
+{
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+
+  "pythonVersion": "3.9.1",
+  "pythonPlatform": "Darwin",
+  "stubPath": "./typings",
+
+  "executionEnvironments": [
+    {
+      "root": "./coffee-roaster-market"
+    }
+  ]
+}
