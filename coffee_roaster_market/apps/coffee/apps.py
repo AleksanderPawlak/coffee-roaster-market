@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class CoffeeConfig(AppConfig):
-    name = "coffee"
+    name = "coffee_roaster_market.apps.coffee"
