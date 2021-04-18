@@ -6,9 +6,9 @@ authors = ["Aleksander Pawlak <qaleksander.pawlak1996@gmail.com>", "Paweł Kucha
 
 [tool.poetry.dependencies]
 python = "^3.9"
-"Django-2.2.19" = "^2.2.19-alpha.20210217101109"
 django-rest-framework = "^0.1.0"
 django-environ = "^0.4.5"
+Django = "^3.2"
 
 [tool.poetry.dev-dependencies]
 pytest-django = "^4.1.0"

@@ -18,6 +18,7 @@ lib/
 lib64/
 parts/
 sdist/
+typings/
 var/
 wheels/
 pip-wheel-metadata/
@@ -133,3 +134,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Emacs
+*~
