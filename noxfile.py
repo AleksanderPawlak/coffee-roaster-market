@@ -22,3 +22,4 @@ def tests(session):
         "pytest-django",
     )
     # session.run('pytest')  # TODO: run pytest
+    # some comment bla bla bla
