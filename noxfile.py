@@ -21,4 +21,4 @@ def tests(session):
         "django-environ",
         "pytest-django",
     )
-    # session.run('pytest')  # TODO: run pytest
+    # session.run('pytest')  # TODO: run pytest2
