@@ -1,30 +1,23 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
+from django.forms.models import model_to_dict
 
 
 class SensorialProfileModel(models.Model):
-    accidity = models.FloatField()
-    balance = models.FloatField()
-    body = models.FloatField()
-    flavor = models.FloatField()
-    aftertaste = models.FloatField()
-    sweetness = models.FloatField()
-    clean_cup = models.FloatField()
+    accidity = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
+    balance = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
+    body = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
+    flavor = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
+    aftertaste = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
+    sweetness = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
+    clean_cup = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
+
     # overall will be calculated from other fields
 
-    def overall(self) -> float:
-        return round(
-            (
-                self.accidity
-                + self.balance
-                + self.body
-                + self.flavor
-                + self.aftertaste
-                + self.sweetness
-                + self.clean_cup
-            )
-            / 7,
-            ndigits=2,
-        )
+    def overall(self) -> int:
+        model_dict = model_to_dict(self)
+        model_dict.pop("id")
+        return round(sum(v for v in model_dict.values()) / len(model_dict))
 
     def __str__(self) -> str:
         return f"{self.pk}. Overall value: ..."
