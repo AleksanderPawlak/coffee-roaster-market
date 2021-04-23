@@ -82,10 +82,11 @@ WSGI_APPLICATION = "coffee_roaster_market.wsgi.application"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
+    "default": env.db(),
+    "extra": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
 }
 
 

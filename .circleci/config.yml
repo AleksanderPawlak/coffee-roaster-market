@@ -4,6 +4,11 @@ jobs:
     build-and-test:
         docker:
             - image: circleci/python:3.9.2
+            - image: circleci/postgres:13-alpine
+        environment:
+          POSTGRES_USER: beanThere 
+          POSTGRES_PASSWORD: beanThere
+          POSTGRES_DB: beanThere
         steps:
             - checkout
             - restore_cache:
