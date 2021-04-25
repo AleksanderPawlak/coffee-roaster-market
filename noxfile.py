@@ -14,6 +14,12 @@ def black(session):
 
 
 @nox_poetry.session
+def mypy(session):
+    session.install("mypy", "django-stubs", "django-environ", "psycopg2-binary")
+    session.run("mypy", "coffee_roaster_market")
+
+
+@nox_poetry.session
 def tests(session):
     session.install(
         "Django",
