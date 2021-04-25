@@ -29,5 +29,6 @@ def tests(session):
         "factory-boy",
         "pytest",
         "pytest-django",
+        "psycopg2-binary",
     )
     session.run("coverage", "run", "-m", "pytest")  # TODO: run pytest
