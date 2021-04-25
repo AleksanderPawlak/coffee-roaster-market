@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework.reverse import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from coffee_roaster_market.apps.coffee.serializers import (
     SensorialProfileSerializer,
@@ -41,8 +42,9 @@ pytestmark = pytest.mark.django_db
 @pytest.fixture
 def client(django_user_model: User) -> APIClient:
     user = django_user_model.objects.create_user(username=USERNAME, password=PASSWORD)
+    token = RefreshToken.for_user(user)
     client = APIClient()
-    client.force_authenticate(user=user)
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {token.access_token}")
 
     return client
 
