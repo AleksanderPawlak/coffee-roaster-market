@@ -12,9 +12,10 @@ class SensorialProfileModel(models.Model):
     sweetness = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
     clean_cup = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
 
+    # overall will be calculated from other fields
+    @property
     def overall(self) -> int:
-        model_dict = model_to_dict(self)
-        model_dict.pop("id")
+        model_dict = model_to_dict(self, exclude=["id"])
         return round(sum(v for v in model_dict.values()) / len(model_dict))
 
     def __str__(self) -> str:
