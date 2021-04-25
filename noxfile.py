@@ -22,9 +22,12 @@ def mypy(session):
 @nox_poetry.session
 def tests(session):
     session.install(
+        "coverage",
         "Django",
         "django-rest-framework",
         "django-environ",
+        "factory-boy",
+        "pytest",
         "pytest-django",
     )
-    # session.run('pytest')  # TODO: run pytest
+    session.run("coverage", "run", "-m", "pytest")  # TODO: run pytest

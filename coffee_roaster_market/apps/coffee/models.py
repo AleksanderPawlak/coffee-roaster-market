@@ -12,15 +12,13 @@ class SensorialProfileModel(models.Model):
     sweetness = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
     clean_cup = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
 
-    # overall will be calculated from other fields
-
     def overall(self) -> int:
         model_dict = model_to_dict(self)
         model_dict.pop("id")
         return round(sum(v for v in model_dict.values()) / len(model_dict))
 
     def __str__(self) -> str:
-        return f"{self.pk}. Overall value: ..."
+        return f"{self.pk}. Overall value: {self.overall()}"
 
 
 class GeoLocationModel(models.Model):
@@ -29,7 +27,7 @@ class GeoLocationModel(models.Model):
     latitude = models.FloatField()
     country = models.CharField(max_length=60)  # Country field
 
-    # Other Fields, address as different table...
+    #  Todo:  Other Fields, address as different table...
     def __str__(self) -> str:
         return f"{self.country}, height: {self.plantation_height}"
 
@@ -55,7 +53,7 @@ class CoffeeModel(models.Model):
 
     name = models.CharField(max_length=80)
     slug = models.CharField(max_length=80)
-    descrption = models.TextField(blank=True)
+    description = models.TextField(blank=True)
     processing_method = models.CharField(
         "ProcessingMethod",
         max_length=20,
@@ -69,6 +67,6 @@ class CoffeeModel(models.Model):
     roast_date = models.DateField()
 
     def __str__(self) -> str:
-        return f"{self.name} r!{self.plantation}"
+        return f"{self.name}, {self.plantation}"
 
     # Roaster foreign key will be also possible
