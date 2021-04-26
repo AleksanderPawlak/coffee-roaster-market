@@ -1,0 +1,4 @@
+[run]
+include = coffee_roaster_market/*
+omit = *migrations*
+disable_warnings = already-imported
