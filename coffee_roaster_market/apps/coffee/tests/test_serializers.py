@@ -26,7 +26,8 @@ def prepare_data(json_data: bytes) -> dict:
     return JSONParser().parse(stream)
 
 
-def test_sensorial_profile_serialize():
+def test_sensorial_profile_serializer():
+    expected_overall = 10
     data = b"""{
         "accidity": 10,
         "balance": 10,
@@ -36,14 +37,20 @@ def test_sensorial_profile_serialize():
         "sweetness": 10,
         "clean_cup": 10
     }"""
-    prepared_data = prepare_data(data)
-    serializer = SensorialProfilSerializer(data=prepared_data)
+    data_dict = prepare_data(data)
+    serializer = SensorialProfilSerializer(data=data_dict)
 
     assert serializer.is_valid()
 
     object_ = serializer.save()
 
     assert SensorialProfileModel.objects.all().last() == object_
+
+    serialized_object = SensorialProfilSerializer(object_)
+    data_dict["overall"] = expected_overall
+    data_dict["id"] = object_.id
+
+    assert serialized_object.data == data_dict
 
 
 def test_geolocation_serializer():
@@ -53,14 +60,19 @@ def test_geolocation_serializer():
         "latitude": 11.2,
         "country": "Poland"
     }"""
-    prepared_data = prepare_data(data)
-    serializer = GeoLocationSerializer(data=prepared_data)
+    data_dict = prepare_data(data)
+    serializer = GeoLocationSerializer(data=data_dict)
 
     assert serializer.is_valid()
 
     object_ = serializer.save()
 
     assert GeoLocationModel.objects.all().last() == object_
+
+    serialized_object = GeoLocationSerializer(object_)
+    data_dict["id"] = object_.id
+
+    assert serialized_object.data == data_dict
 
 
 def test_plantation_serializer():
@@ -70,14 +82,19 @@ def test_plantation_serializer():
         "geo_location": {geo_location.id}
     }}""".encode()
 
-    prepared_data = prepare_data(data)
-    serializer = PlantationSerializer(data=prepared_data)
+    data_dict = prepare_data(data)
+    serializer = PlantationSerializer(data=data_dict)
 
     assert serializer.is_valid()
 
     object_ = serializer.save()
 
     assert PlantationModel.objects.all().last() == object_
+
+    serialized_object = PlantationSerializer(object_)
+    data_dict["id"] = object_.id
+
+    assert serialized_object.data == data_dict
 
 
 def test_coffee_serializer():
@@ -92,11 +109,17 @@ def test_coffee_serializer():
         "sensorial_profile": {sensorial_profile.id},
         "plantation": {plantation.id}
     }}""".encode()
-    prepared_data = prepare_data(data)
-    serializer = CoffeeSerializer(data=prepared_data)
+
+    data_dict = prepare_data(data)
+    serializer = CoffeeSerializer(data=data_dict)
 
     assert serializer.is_valid()
 
     object_ = serializer.save()
 
     assert CoffeeModel.objects.all().last() == object_
+
+    serialized_object = CoffeeSerializer(object_)
+    data_dict["id"] = object_.id
+
+    assert serialized_object.data == data_dict
