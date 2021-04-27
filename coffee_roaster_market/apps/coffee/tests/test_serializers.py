@@ -16,6 +16,8 @@ from coffee_roaster_market.apps.coffee.serializers import (
     CoffeeSerializer,
 )
 
+from .factories import GeolocationFactory, PlantationFactory, SensorialProfileFactory
+
 pytestmark = pytest.mark.django_db
 
 
@@ -62,10 +64,12 @@ def test_geolocation_serializer():
 
 
 def test_plantation_serializer():
-    data = b"""{
+    geo_location = GeolocationFactory.create()
+    data = f"""{{
         "name": "Giorgione",
-        "geo_location": 1
-    }"""
+        "geo_location": {geo_location.id}
+    }}""".encode()
+
     prepared_data = prepare_data(data)
     serializer = PlantationSerializer(data=prepared_data)
 
@@ -77,15 +81,17 @@ def test_plantation_serializer():
 
 
 def test_coffee_serializer():
-    data = b"""{
+    sensorial_profile = SensorialProfileFactory.create()
+    plantation = PlantationFactory.create()
+    data = f"""{{
         "name": "Kopi luwak",
-        "slug": "something",
+        "slug": "some slug",
         "description": "Partially digested coffee cherries",
         "processing_method": "natural",
         "roast_date": "2021-02-01",
-        "sensorial_profile": 1,
-        "plantation": 1
-    }"""
+        "sensorial_profile": {sensorial_profile.id},
+        "plantation": {plantation.id}
+    }}""".encode()
     prepared_data = prepare_data(data)
     serializer = CoffeeSerializer(data=prepared_data)
 
