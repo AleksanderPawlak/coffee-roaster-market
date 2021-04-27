@@ -19,7 +19,7 @@ class SensorialProfileModel(models.Model):
         return round(sum(v for v in model_dict.values()) / len(model_dict))
 
     def __str__(self) -> str:
-        return f"{self.pk}. Overall value: {self.overall()}"
+        return f"{self.pk}. Overall value: {self.overall}"
 
 
 class GeoLocationModel(models.Model):
