@@ -1,7 +1,4 @@
-import io
 import pytest
-
-from rest_framework.parsers import JSONParser
 
 from coffee_roaster_market.apps.coffee.models import (
     SensorialProfileModel,
@@ -17,13 +14,9 @@ from coffee_roaster_market.apps.coffee.serializers import (
 )
 
 from .factories import GeolocationFactory, PlantationFactory, SensorialProfileFactory
+from .assets import parse_json_data
 
 pytestmark = pytest.mark.django_db
-
-
-def prepare_data(json_data: bytes) -> dict:
-    stream = io.BytesIO(json_data)
-    return JSONParser().parse(stream)
 
 
 def test_sensorial_profile_serializer():
@@ -37,7 +30,7 @@ def test_sensorial_profile_serializer():
         "sweetness": 10,
         "clean_cup": 10
     }"""
-    data_dict = prepare_data(data)
+    data_dict = parse_json_data(data)
     serializer = SensorialProfilSerializer(data=data_dict)
 
     assert serializer.is_valid()
@@ -60,7 +53,7 @@ def test_geolocation_serializer():
         "latitude": 11.2,
         "country": "Poland"
     }"""
-    data_dict = prepare_data(data)
+    data_dict = parse_json_data(data)
     serializer = GeoLocationSerializer(data=data_dict)
 
     assert serializer.is_valid()
@@ -82,7 +75,7 @@ def test_plantation_serializer():
         "geo_location": {geo_location.id}
     }}""".encode()
 
-    data_dict = prepare_data(data)
+    data_dict = parse_json_data(data)
     serializer = PlantationSerializer(data=data_dict)
 
     assert serializer.is_valid()
@@ -110,7 +103,7 @@ def test_coffee_serializer():
         "plantation": {plantation.id}
     }}""".encode()
 
-    data_dict = prepare_data(data)
+    data_dict = parse_json_data(data)
     serializer = CoffeeSerializer(data=data_dict)
 
     assert serializer.is_valid()
