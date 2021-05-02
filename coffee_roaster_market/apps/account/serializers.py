@@ -1,15 +1,16 @@
 from typing import Type, cast
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser
 from rest_framework import serializers
 
-User = get_user_model()
-User = cast(Type[AbstractUser], User)
+from .models import User
+
+UserModel = get_user_model()
+UserModel = cast(Type[User], UserModel)
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = UserModel
         fields = ["username", "email"]
 
 
@@ -20,7 +21,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = User
+        model = UserModel
         fields = ["username", "email", "password", "password_retype"]
 
     def validate(self, attrs):
@@ -30,7 +31,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
 
     def create(self, validated_data):
-        user = User(username=validated_data["username"], email=validated_data["email"])
+        user = UserModel(
+            username=validated_data["username"], email=validated_data["email"]
+        )
         user.set_password(validated_data["password"])
         user.save()
         return user
