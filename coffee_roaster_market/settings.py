@@ -34,7 +34,6 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS: List[str] = []
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     # internal custom apps
     "coffee_roaster_market.apps.coffee",
     "coffee_roaster_market.apps.item",
+    "coffee_roaster_market.apps.account",
 ]
 
 MIDDLEWARE = [
@@ -139,3 +139,4 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
+AUTH_USER_MODEL = "account.User"
