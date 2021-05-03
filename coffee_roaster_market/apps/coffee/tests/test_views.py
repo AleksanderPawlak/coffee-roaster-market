@@ -4,9 +4,19 @@ from typing import Final
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 
-from coffee_roaster_market.apps.coffee.serializers import SensorialProfilSerializer
+from coffee_roaster_market.apps.coffee.serializers import (
+    SensorialProfilSerializer,
+    GeoLocationSerializer,
+    PlantationSerializer,
+    CoffeeSerializer,
+)
 
-from .factories import SensorialProfileFactory
+from .factories import (
+    SensorialProfileFactory,
+    GeolocationFactory,
+    PlantationFactory,
+    CoffeeFactory,
+)
 from .assets import parse_json_data
 
 USERNAME: Final[str] = "someuser"
@@ -26,10 +36,52 @@ def client(django_user_model: User) -> APIClient:
     return client
 
 
+# TODO: maybe one parametrized test for all views?
+
+
 def test_get_sensorial_profile(client: APIClient):
     sensorial_profile = SensorialProfileFactory()
     serialized = SensorialProfilSerializer(sensorial_profile)
     response = client.get("/sensorial_profiles/")
+
+    assert response.status_code == 200
+
+    response_data = parse_json_data(response.content)
+
+    assert len(response_data) == 1
+    assert response_data[0] == serialized.data
+
+
+def test_get_geolocation(client: APIClient):
+    sensorial_profile = GeolocationFactory()
+    serialized = GeoLocationSerializer(sensorial_profile)
+    response = client.get("/geolocations/")
+
+    assert response.status_code == 200
+
+    response_data = parse_json_data(response.content)
+
+    assert len(response_data) == 1
+    assert response_data[0] == serialized.data
+
+
+def test_get_plantation(client: APIClient):
+    sensorial_profile = PlantationFactory()
+    serialized = PlantationSerializer(sensorial_profile)
+    response = client.get("/plantations/")
+
+    assert response.status_code == 200
+
+    response_data = parse_json_data(response.content)
+
+    assert len(response_data) == 1
+    assert response_data[0] == serialized.data
+
+
+def test_get_coffee(client: APIClient):
+    sensorial_profile = CoffeeFactory()
+    serialized = CoffeeSerializer(sensorial_profile)
+    response = client.get("/coffee/")
 
     assert response.status_code == 200
 
