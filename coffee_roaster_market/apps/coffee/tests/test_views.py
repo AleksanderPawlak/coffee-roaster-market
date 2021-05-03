@@ -52,6 +52,14 @@ def test_get_sensorial_profile(client: APIClient):
     assert response_data[0] == serialized.data
 
 
+def test_delete_sensorial_profile(client: APIClient):
+    sensorial_profile = SensorialProfileFactory()
+    url = f"/sensorial_profiles/{sensorial_profile.id}/"
+    response = client.delete(url)
+
+    assert response.status_code == 204
+
+
 def test_get_geolocation(client: APIClient):
     sensorial_profile = GeolocationFactory()
     serialized = GeoLocationSerializer(sensorial_profile)
@@ -63,6 +71,14 @@ def test_get_geolocation(client: APIClient):
 
     assert len(response_data) == 1
     assert response_data[0] == serialized.data
+
+
+def test_delete_geolocation(client: APIClient):
+    geolocation = GeolocationFactory()
+    url = f"/geolocations/{geolocation.id}/"
+    response = client.delete(url)
+
+    assert response.status_code == 204
 
 
 def test_get_plantation(client: APIClient):
@@ -78,6 +94,14 @@ def test_get_plantation(client: APIClient):
     assert response_data[0] == serialized.data
 
 
+def test_delete_plantation(client: APIClient):
+    plantation = PlantationFactory()
+    url = f"/plantations/{plantation.id}/"
+    response = client.delete(url)
+
+    assert response.status_code == 204
+
+
 def test_get_coffee(client: APIClient):
     sensorial_profile = CoffeeFactory()
     serialized = CoffeeSerializer(sensorial_profile)
@@ -89,3 +113,11 @@ def test_get_coffee(client: APIClient):
 
     assert len(response_data) == 1
     assert response_data[0] == serialized.data
+
+
+def test_delete_coffee(client: APIClient):
+    coffee = CoffeeFactory()
+    url = f"/coffee/{coffee.id}/"
+    response = client.delete(url)
+
+    assert response.status_code == 204
