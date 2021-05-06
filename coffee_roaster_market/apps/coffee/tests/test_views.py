@@ -4,6 +4,7 @@ import json
 from typing import Final, Optional, Iterable
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from coffee_roaster_market.apps.coffee.serializers import (
     SensorialProfilSerializer,
@@ -43,10 +44,10 @@ def compare_dicts(
 
 @pytest.fixture
 def client(django_user_model: User) -> APIClient:
-    django_user_model.objects.create_user(username=USERNAME, password=PASSWORD)
-    user = User.objects.get(username=USERNAME)
+    user = django_user_model.objects.create_user(username=USERNAME, password=PASSWORD)
+    token = RefreshToken.for_user(user)
     client = APIClient()
-    client.force_authenticate(user=user)
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {token.access_token}")
 
     return client
 
