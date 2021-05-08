@@ -14,6 +14,7 @@ from coffee_roaster_market.apps.coffee.models import (
 class SensorialProfileFactory(factory.django.DjangoModelFactory):
     accidity = factory.fuzzy.FuzzyInteger(low=0, high=100)
     balance = factory.fuzzy.FuzzyInteger(low=0, high=100)
+    body = factory.fuzzy.FuzzyInteger(low=0, high=100)
     flavor = factory.fuzzy.FuzzyInteger(low=0, high=100)
     aftertaste = factory.fuzzy.FuzzyInteger(low=0, high=100)
     sweetness = factory.fuzzy.FuzzyInteger(low=0, high=100)

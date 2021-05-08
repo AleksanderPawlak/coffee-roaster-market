@@ -15,7 +15,13 @@ def black(session):
 
 @nox_poetry.session
 def mypy(session):
-    session.install("mypy", "django-stubs", "django-environ", "psycopg2-binary")
+    session.install(
+        "mypy",
+        "django-stubs",
+        "django-environ",
+        "psycopg2-binary",
+        "django-rest-framework",
+    )
     session.run("mypy", "coffee_roaster_market")
 
 
