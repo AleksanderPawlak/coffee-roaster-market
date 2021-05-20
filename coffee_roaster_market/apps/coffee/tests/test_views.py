@@ -27,14 +27,14 @@ USERNAME: Final[str] = "someuser"
 PASSWORD: Final[str] = "password"
 JSON_FORMAT: Final[str] = "json"
 
-SENSORIAL_PROFILES_LIST: Final[str] = "sensorial_profiles-list"
-SENSORIAL_PROFILES_detail: Final[str] = "sensorial_profiles-detail"
-GEOLOCATIONS_LIST: Final[str] = "geolocations-list"
-GEOLOCATIONS_DETAIL: Final[str] = "geolocations-detail"
-PLANTATIONS_LIST: Final[str] = "plantations-list"
-PLANTATIONS_DETAIL: Final[str] = "plantations-detail"
-COFFEE_LIST: Final[str] = "coffee-list"
-COFFEE_DETAIL: Final[str] = "coffee-detail"
+SENSORIAL_PROFILES_LIST: Final[str] = "coffee:sensorial_profiles-list"
+SENSORIAL_PROFILES_detail: Final[str] = "coffee:sensorial_profiles-detail"
+GEOLOCATIONS_LIST: Final[str] = "coffee:geolocations-list"
+GEOLOCATIONS_DETAIL: Final[str] = "coffee:geolocations-detail"
+PLANTATIONS_LIST: Final[str] = "coffee:plantations-list"
+PLANTATIONS_DETAIL: Final[str] = "coffee:plantations-detail"
+COFFEE_LIST: Final[str] = "coffee:coffee-list"
+COFFEE_DETAIL: Final[str] = "coffee:coffee-detail"
 
 pytestmark = pytest.mark.django_db
 

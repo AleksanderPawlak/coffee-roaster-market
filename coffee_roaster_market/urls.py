@@ -16,22 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
-from .apps.coffee import views
-
-
-router = routers.DefaultRouter()
-router.register(
-    r"sensorial_profiles", views.SensorialProfileViewSet, basename="sensorial_profiles"
-)
-router.register(r"geolocations", views.GeolocationViewSet, basename="geolocations")
-router.register(r"plantations", views.PlantationViewSet, basename="plantations")
-router.register(r"coffee", views.CoffeeViewSet, basename="coffee")
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("", include("coffee_roaster_market.apps.coffee.urls", namespace="coffee")),
     path("admin/", admin.site.urls),
     path(
         "api/token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"
