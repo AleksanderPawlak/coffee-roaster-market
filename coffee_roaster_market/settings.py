@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     # internal custom apps
     "coffee_roaster_market.apps.coffee",
+    "coffee_roaster_market.apps.item",
 ]
 
 MIDDLEWARE = [

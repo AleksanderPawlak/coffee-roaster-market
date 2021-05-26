@@ -15,4 +15,4 @@ def compare_dicts(
     exclude_fields = exclude_fields or []
     keys = (key for key in expected_value if key not in exclude_fields)
     for key in keys:
-        assert value[key] == expected_value[key]
+        assert value[key] == expected_value[key], key
