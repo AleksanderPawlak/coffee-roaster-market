@@ -2,11 +2,9 @@ import pytest
 import json
 
 from typing import Final
-from django.contrib.auth.models import User
 from rest_framework.reverse import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from coffee_roaster_market.apps.coffee.serializers import (
     SensorialProfileSerializer,
@@ -23,8 +21,6 @@ from .factories import (
 )
 from .assets import parse_json_data, compare_dicts
 
-USERNAME: Final[str] = "someuser"
-PASSWORD: Final[str] = "password"
 JSON_FORMAT: Final[str] = "json"
 
 SENSORIAL_PROFILES_LIST: Final[str] = "coffee:sensorial_profiles-list"
@@ -37,16 +33,6 @@ COFFEE_LIST: Final[str] = "coffee:coffee-list"
 COFFEE_DETAIL: Final[str] = "coffee:coffee-detail"
 
 pytestmark = pytest.mark.django_db
-
-
-@pytest.fixture
-def client(django_user_model: User) -> APIClient:
-    user = django_user_model.objects.create_user(username=USERNAME, password=PASSWORD)
-    token = RefreshToken.for_user(user)
-    client = APIClient()
-    client.credentials(HTTP_AUTHORIZATION=f"Bearer {token.access_token}")
-
-    return client
 
 
 def test_get_sensorial_profile(client: APIClient):
@@ -66,7 +52,7 @@ def test_get_sensorial_profile(client: APIClient):
 def test_post_sensorial_profile(client: APIClient):
     sensorial_profile = SensorialProfileFactory.build()
     serialized = SensorialProfileSerializer(sensorial_profile)
-    url = url = reverse(SENSORIAL_PROFILES_LIST)
+    url = reverse(SENSORIAL_PROFILES_LIST)
     response = client.post(url, serialized.data, format=JSON_FORMAT)
 
     assert response.status_code == status.HTTP_201_CREATED
