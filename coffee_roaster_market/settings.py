@@ -139,4 +139,12 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
+# User related settings
 AUTH_USER_MODEL = "account.User"
+ACTIVATION_URL = "http://front.com/activate/{uid}/{token}"  # Some frontend url
+
+
+# Templated mail
+TEMPLATED_EMAIL_TEMPLATE_DIR = "email/"
+TEMPLATED_EMAIL_FILE_EXTENSION = "html"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # for now

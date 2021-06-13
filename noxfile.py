@@ -37,5 +37,6 @@ def tests(session):
         "pytest-django",
         "psycopg2-binary",
         "djangorestframework_simplejwt",
+        "django-templated-email",
     )
     session.run("coverage", "run", "-m", "pytest")  # TODO: run pytest
