@@ -1,4 +1,4 @@
-from typing import Type, cast
+from typing import Any, Dict, Type, cast
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ValidationError
@@ -28,13 +28,13 @@ class UserCreateSerializer(serializers.ModelSerializer):
         model = UserModel
         fields = ["username", "email", "password", "password_retype"]
 
-    def validate(self, attrs):
+    def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
         re_password = attrs.pop("password_retype")
         if attrs["password"] != re_password:
             raise serializers.ValidationError("password mismatch!")
         return super().validate(attrs)
 
-    def create(self, validated_data):
+    def create(self, validated_data: Dict[str, Any]) -> User:
         user = User(username=validated_data["username"], email=validated_data["email"])
         user.set_password(validated_data["password"])
         user.save()
@@ -63,7 +63,7 @@ class UserActivationSerializer(serializers.Serializer):
                 raise ValidationError("Account already activated.")
             return value
 
-    def validate_token(self, value) -> dict:
+    def validate_token(self, value: str) -> str:
         is_token_valid = default_token_generator.check_token(self.user, value)
         if not is_token_valid:
             raise ValidationError("Invalid token.")
