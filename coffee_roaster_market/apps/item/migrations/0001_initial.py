@@ -8,9 +8,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ("coffee", "0002_rename_descrption_coffeemodel_description"),
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(

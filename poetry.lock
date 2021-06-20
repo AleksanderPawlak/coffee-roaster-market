@@ -114,6 +114,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "django-render-block"
+version = "0.8.1"
+description = "Render a particular block from a template to a string."
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[package.dependencies]
+django = ">=2.2"
+
+[[package]]
 name = "django-rest-framework"
 version = "0.1.0"
 description = "alias."
@@ -148,6 +159,17 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 django = "*"
+
+[[package]]
+name = "django-templated-email"
+version = "3.0.0"
+description = "A Django oriented templated / transaction email abstraction"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+django-render-block = ">=0.5"
 
 [[package]]
 name = "djangorestframework"
@@ -458,7 +480,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ac96ad35728138d0ece905642f80d52102bfd385ff3b3ca426dbff883ecc6da4"
+content-hash = "27bc548e885f219e1eac486f6a504ccb6f257c20a51c52cb41ff0ee4df4a29bd"
 
 [metadata.files]
 appdirs = [
@@ -550,6 +572,10 @@ django-environ = [
     {file = "django-environ-0.4.5.tar.gz", hash = "sha256:6c9d87660142608f63ec7d5ce5564c49b603ea8ff25da595fd6098f6dc82afde"},
     {file = "django_environ-0.4.5-py2.py3-none-any.whl", hash = "sha256:c57b3c11ec1f319d9474e3e5a79134f40174b17c7cc024bbb2fad84646b120c4"},
 ]
+django-render-block = [
+    {file = "django-render-block-0.8.1.tar.gz", hash = "sha256:edbc5d444cc50f3eb3387cf17f6f1014bf19d6018f680861cdeae9e0306003fa"},
+    {file = "django_render_block-0.8.1-py3-none-any.whl", hash = "sha256:903969efd0949f750c5fe71affe6e6b1ea66d03005c102a67fda36d5b9f4e1e1"},
+]
 django-rest-framework = [
     {file = "django-rest-framework-0.1.0.tar.gz", hash = "sha256:47a8f496fa69e3b6bd79f68dd7a1527d907d6b77f009e9db7cf9bb21cc565e4a"},
 ]
@@ -560,6 +586,10 @@ django-stubs = [
 django-stubs-ext = [
     {file = "django-stubs-ext-0.2.0.tar.gz", hash = "sha256:c14f297835a42c1122421ec7e2d06579996b29d33b8016002762afa5d78863af"},
     {file = "django_stubs_ext-0.2.0-py3-none-any.whl", hash = "sha256:bd4a1e36ef2ba0ef15801933c85c68e59b383302c873795c6ecfc25950c7ecdb"},
+]
+django-templated-email = [
+    {file = "django-templated-email-3.0.0.tar.gz", hash = "sha256:49d61840ec551e640adaf341146e94d6f9058ae01df964480850bf988046e5eb"},
+    {file = "django_templated_email-3.0.0-py3-none-any.whl", hash = "sha256:bf1b68ffe6c8794c0c50e2ce20e3a166c6d511b3879abbd3cf059a3fc2fe2e60"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.12.4-py3-none-any.whl", hash = "sha256:6d1d59f623a5ad0509fe0d6bfe93cbdfe17b8116ebc8eda86d45f6e16e819aaf"},
