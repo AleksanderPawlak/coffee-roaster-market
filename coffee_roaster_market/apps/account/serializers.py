@@ -37,6 +37,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User(username=validated_data["username"], email=validated_data["email"])
         user.set_password(validated_data["password"])
+        user.save()
         activation_url = build_activation_url(user=user)
         send_templated_mail(
             template_name="activation",
@@ -44,8 +45,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
             recipient_list=[user.email],
             context={"activation_url": activation_url},
         )
-
-        user.save()
         return user
 
 
@@ -64,7 +63,7 @@ class UserActivationSerializer(serializers.Serializer):
                 raise ValidationError("Account already activated.")
             return value
 
-    def validate_token(self, value: str) -> str:
+    def validate_token(self, value) -> dict:
         is_token_valid = default_token_generator.check_token(self.user, value)
         if not is_token_valid:
             raise ValidationError("Invalid token.")

@@ -16,5 +16,8 @@ def decode_uid(pk: str) -> str:
 
 def build_activation_url(user: User) -> str:
     return settings.ACTIVATION_URL.format(
-        {"uid": encode_uid(user.pk), "token": default_token_generator.make_token(user)}
+        **{
+            "uid": encode_uid(user.pk),
+            "token": default_token_generator.make_token(user),
+        }
     )
